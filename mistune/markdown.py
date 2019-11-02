@@ -44,9 +44,7 @@ class Markdown(object):
 
         s, state = self.before_parse(s, state)
         tokens = self.block.parse(s, state)
-        result = self.block.render(tokens, self.inline, state)
-        result = self.after_render(result, state)
-        return result
+        return tokens
 
     def read(self, filepath, state=None):
         if state is None:
@@ -56,10 +54,15 @@ class Markdown(object):
         with open(filepath, "rb") as f:
             s = f.read()
 
-        return self.parse(s.decode("utf-8"), state)
+        return self.render(s.decode("utf-8"), state)
+
+    def render(self, s, state=None):
+        result = self.block.render(self.parse(s, state), self.inline, state)
+        result = self.after_render(result, state)
+        return result
 
     def __call__(self, s):
-        return self.parse(s)
+        return self.render(s)
 
 
 def preprocess(s, state):
