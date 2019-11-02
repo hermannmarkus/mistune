@@ -44,7 +44,7 @@ class Markdown(object):
 
         s, state = self.before_parse(s, state)
         tokens = self.block.parse(s, state)
-        return tokens
+        return (tokens, state)
 
     def read(self, filepath, state=None):
         if state is None:
@@ -57,7 +57,8 @@ class Markdown(object):
         return self.render(s.decode("utf-8"), state)
 
     def render(self, s, state=None):
-        result = self.block.render(self.parse(s, state), self.inline, state)
+        tokens, state = self.parse(s, state)
+        result = self.block.render(tokens, self.inline, state)
         result = self.after_render(result, state)
         return result
 
