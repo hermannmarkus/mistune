@@ -13,8 +13,8 @@ class TestPluginToc(BaseTestCase):
         return html, toc
 
     def assert_case(self, name, text, html):
-        result = '.\n'.join(self.parse(text))
+        result = ".\n".join(self.parse(text))
         self.assertEqual(result, html)
 
 
-TestPluginToc.load_fixtures('toc.txt')
+TestPluginToc.load_fixtures("toc.txt")

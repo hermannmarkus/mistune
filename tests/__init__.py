@@ -9,9 +9,9 @@ class BaseTestCase(TestCase):
             def method(self):
                 self.assert_case(n, text, html)
 
-            name = 'test_{}'.format(n)
+            name = "test_{}".format(n)
             method.__name__ = name
-            method.__doc__ = 'Run fixture {} - {}'.format(case_file, n)
+            method.__doc__ = "Run fixture {} - {}".format(case_file, n)
             setattr(cls, name, method)
 
         for n, text, html in fixtures.load_examples(case_file):
